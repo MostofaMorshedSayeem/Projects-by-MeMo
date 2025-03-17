@@ -2,7 +2,7 @@
 <interface>
   <requires lib="gtk+" version="3.20"/>
   <object class="GtkWindow" id="window">
-    <property name="title">Simple Calculator</property>
+    <property name="title">Simple Calculator made by Mo</property>
     <property name="default_width">200</property>
     <property name="default_height">150</property>
     <child>
