@@ -14,8 +14,8 @@ def show_congratulations_screen():
     label = tk.Label(root, text="🎉 Files pushed successfully to GitHub! 🎉", font=("Helvetica", 12), wraplength=280, justify="center")
     label.pack(expand=True)
     
-    # Close the window after 5 seconds
-    Timer(5.0, root.destroy).start()
+    # Close the window after 8 seconds
+    Timer(8.0, root.destroy).start()
     root.mainloop()
 
 def git_push():
@@ -35,8 +35,12 @@ def git_push():
         subprocess.run(["git", "push"], check=True)
         
         print("Files have been pushed to GitHub successfully.")
+        
         # Show the congratulations screen
         show_congratulations_screen()
+        
+        # Exit the script automatically after 8 seconds
+        Timer(8.0, os._exit, args=(0,)).start()
     except subprocess.CalledProcessError as e:
         print(f"Error: {e}")
     except Exception as ex:
