@@ -1,16 +1,33 @@
 import os
 import subprocess
 from datetime import datetime
+import tkinter as tk
+from threading import Timer
+
+def show_congratulations_screen():
+    # Create a tkinter window
+    root = tk.Tk()
+    root.title("Congratulations")
+    root.geometry("300x150")
+    
+    # Add a label
+    label = tk.Label(root, text="🎉 Files pushed successfully to GitHub! 🎉", font=("Helvetica", 12), wraplength=280, justify="center")
+    label.pack(expand=True)
+    
+    # Close the window after 5 seconds
+    Timer(5.0, root.destroy).start()
+    root.mainloop()
 
 def git_push():
     try:
-        # Get the current time and date
+        # Get the current time, date, and day of the week
         now = datetime.now()
         commit_time = now.strftime("%H:%M")
-        commit_date = now.strftime("%d %m %Y")
+        commit_date = now.strftime("%d-%m-%Y")  # Enhanced date format
+        day_of_week = now.strftime("%A")
         
-        # Custom commit message
-        commit_message = f"This file was pushed at time {commit_time} and date {commit_date} by MO"
+        # Enhanced commit message
+        commit_message = f"Files pushed by MO on {day_of_week}, {commit_date} at {commit_time}"
         
         # Run Git commands
         subprocess.run(["git", "add", "."], check=True)
@@ -18,6 +35,8 @@ def git_push():
         subprocess.run(["git", "push"], check=True)
         
         print("Files have been pushed to GitHub successfully.")
+        # Show the congratulations screen
+        show_congratulations_screen()
     except subprocess.CalledProcessError as e:
         print(f"Error: {e}")
     except Exception as ex:
